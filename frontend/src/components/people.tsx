@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { List, ListItemButton, TablePagination } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const GET_PEOPLE = gql`
@@ -50,7 +50,7 @@ const People = () => {
         <>
             {data &&
                 <>
-                    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'grey' }}>
+                    <Box sx={{ width: '100%', maxWidth: 360 }}>
                         <List>
                             {data.allPeople.people.map((person: any, index: number) =>
                                 <ListItemButton key={`person${index}`}>
@@ -59,7 +59,7 @@ const People = () => {
                             )}
                         </List>
                     </Box>
-                    <TablePagination count={data.allPeople.totalCount} onPageChange={(event, page) => getNextPage(event, page)} page={currentPage} rowsPerPage={rowsPerPage} onRowsPerPageChange={(event) => updateList(event)}/>
+                    <TablePagination sx={{bgcolor: "white"}} count={data.allPeople.totalCount} onPageChange={(event, page) => getNextPage(event, page)} page={currentPage} rowsPerPage={rowsPerPage} onRowsPerPageChange={(event) => updateList(event)}/>
                 </>
             }
         </>
