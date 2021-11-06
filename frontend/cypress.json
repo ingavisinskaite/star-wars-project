@@ -1,0 +1,7 @@
+{
+    "integrationFolder": "cypress/e2e",
+    "env": {
+        "frontend_url": "http://localhost:3000",
+        "backend_url": "http://localhost:58375"
+    }
+}

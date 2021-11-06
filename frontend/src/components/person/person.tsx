@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { Button, Card, Grid, List, ListItem } from "@mui/material";
+import { Button, Grid, List, ListItem } from "@mui/material";
 import { useHistory, useParams } from "react-router";
 import Loader from "../loader/loader";
 
@@ -42,21 +42,23 @@ const Person = ({ isCrawlActive, setIsCrawlActive }: PersonProps) => {
     };
 
     return (
-        <div className="person-page" onClick={addCrawlAnimation}>
+        <div className="person-page">
             {data &&
                 <Grid
                     className="grid"
                     container
                     direction="column"
                     alignItems="center"
+                    onClick={addCrawlAnimation}
                 >
                     <Grid item
                         xs={12} sm={6}
                         md={3} lg={12}
                         className={`grid-item ${isCrawlActive ? "crawl" : ""}`}
+                        data-cy="grid-item"
                     >
-                        <h3>{data.person.name}</h3>
-                        <List className="film-list">
+                        <h3 data-cy="name">{data.person.name}</h3>
+                        <List className="film-list" data-cy="film-list">
                             {data.person.filmConnection.films.map((film: Film) =>
                                 <ListItem key={film.title}>
                                     {film.title}
@@ -66,7 +68,7 @@ const Person = ({ isCrawlActive, setIsCrawlActive }: PersonProps) => {
                     </Grid>
                 </Grid>
             }
-            <Button variant="contained" onClick={goToMainPage} className="button">Go back</Button>
+            <Button variant="contained" data-cy="go-back-btn" onClick={goToMainPage} className="button">Go back</Button>
             {loading &&
                 <Loader />
             }

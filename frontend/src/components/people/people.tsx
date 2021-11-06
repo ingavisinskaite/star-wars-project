@@ -71,11 +71,11 @@ const People = () => {
     return (
         displayedPeople.length > 0
             ? <div className="people-page">
-                <Grid container spacing={2}>
+                <Grid container spacing={2} data-cy="people-container">
                     {displayedPeople.map((person: Person) =>
                         <Grid item xs={12} sm={6} md={3} lg={2} data-cy="card" key={person.name}>
                             <Card className="card" onClick={() => redirectToDetailPage(person.id)} sx={{ bgcolor: "rgba(255, 255, 255, 0.4)", color: "#f9d71c" }}>
-                                <h3>{person.name}</h3>
+                                <h3 data-cy="name">{person.name}</h3>
                                 <img src={selectAvatar(person.gender)} alt={person.gender} />
                             </Card>
                         </Grid>
