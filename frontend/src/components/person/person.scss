@@ -1,0 +1,49 @@
+.grid {
+    perspective: 400px;
+    color: $yellow;
+    font-family: 'Pathway Gothic One', sans-serif;
+    font-size: 200%;
+    letter-spacing: 6px;
+    cursor: pointer;
+  
+    .grid-item {
+      cursor: pointer;
+    }
+  }
+  
+  .crawl {
+    position: relative;
+    animation: crawl 60s linear;
+  }
+  
+  @keyframes crawl {
+    0% {
+      top: 0;
+      transform: rotateX(5deg) translateZ(0);
+    }
+    5% {
+      top: 0;
+      transform: rotateX(15deg) translateZ(0);
+    }
+    100% { 
+      top: -6000px;
+      transform: rotateX(25deg) translateZ(-3500px);
+    }
+  }
+
+  .logo-active {
+    animation: logo 6s ease-out;
+    opacity: 0;
+  }
+  
+  @keyframes logo {
+    0% {
+        width: 18em;        
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.1);
+        width: 18em;        
+    }
+  }
