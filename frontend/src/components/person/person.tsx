@@ -43,35 +43,37 @@ const Person = ({ isCrawlActive, setIsCrawlActive }: PersonProps) => {
 
     return (
         <div className="person-page">
-            {data &&
-                <Grid
-                    className="grid"
-                    container
-                    direction="column"
-                    alignItems="center"
-                    onClick={addCrawlAnimation}
+            <Grid
+                className="grid"
+                container
+                direction="column"
+                alignItems="center"
+                onClick={addCrawlAnimation}
+            >
+                <Grid item
+                    xs={12} sm={6}
+                    md={3} lg={12}
+                    className={`grid-item ${isCrawlActive ? "crawl" : ""}`}
+                    data-cy="grid-item"
                 >
-                    <Grid item
-                        xs={12} sm={6}
-                        md={3} lg={12}
-                        className={`grid-item ${isCrawlActive ? "crawl" : ""}`}
-                        data-cy="grid-item"
-                    >
-                        <h3 data-cy="name">{data.person.name}</h3>
-                        <List className="film-list" data-cy="film-list">
-                            {data.person.filmConnection.films.map((film: Film) =>
-                                <ListItem key={film.title}>
-                                    {film.title}
-                                </ListItem>
-                            )}
-                        </List>
-                    </Grid>
+                    {data &&
+                        <>
+                            <h3 data-cy="name" className="name">{data.person.name}</h3>
+                            <List className="film-list" data-cy="film-list">
+                                {data.person.filmConnection.films.map((film: Film) =>
+                                    <ListItem key={film.title}>
+                                        {film.title}
+                                    </ListItem>
+                                )}
+                            </List>
+                        </>
+                    }
+                    {loading &&
+                        <Loader />
+                    }
                 </Grid>
-            }
+            </Grid>
             <Button variant="contained" data-cy="go-back-btn" onClick={goToMainPage} className="button">Go back</Button>
-            {loading &&
-                <Loader />
-            }
         </div>
     )
 };

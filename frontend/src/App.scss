@@ -1,13 +1,7 @@
 @import "./assets/styles/variables.scss";
 @import "./components/person/person.scss";
 @import "./components/people/people.scss";
-
-.star-wars-logo {
-  width: 300px;
-  margin: 0 auto;
-  z-index: 999;
-  display: flex;
-}
+@import "./components/logo/logo.scss";
 
 .loader-wrapper {
   width: 100%;
@@ -39,20 +33,19 @@
   }
 }
 
-.people-page, .person-page {
+.people-page,
+.person-page {
   padding: 20px;
-
-  .load-more-button {
-    margin: 20px 0;
-  }
+  height: 100%;
 
   .button {
     background-color: #c9c9c9;
     color: black;
     font-weight: bold;
     float: right;
+    margin: 20px 0;
   }
-  
+
   .button:hover {
     background-color: $yellow;
   }

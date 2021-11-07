@@ -10,8 +10,27 @@ import {
 } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: 'http://localhost:58375',
-  cache: new InMemoryCache()
+  uri: 'http://localhost:59471',
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          allPeople: {
+            keyArgs: false,
+            merge(existing, incoming) {
+              if (!existing) return incoming;
+              if (!incoming) return existing;
+
+              const { people, ...rest } = incoming;
+              let result = rest;
+              result.people = [...existing.people, ...people];
+              return result;
+            },
+          }
+        }
+      }
+    }
+  })
 });
 
 ReactDOM.render(

@@ -1,8 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { Button, Card, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import  male from "../../assets/images/male.png";
+import male from "../../assets/images/male.png";
 import female from "../../assets/images/female.png";
 import unknown from "../../assets/images/unknown.png";
 import Loader from "../loader/loader";
@@ -34,24 +33,14 @@ type Person = {
 
 const People = () => {
     const limit = 10;
-    const [currentCount, setCurrentCount] = useState<number>(limit);
-    const [displayedPeople, setDisplayedPeople] = useState<Person[]>([]);
-    const { loading, data, refetch } = useQuery(GET_PEOPLE, {
+    const { loading, data, fetchMore } = useQuery(GET_PEOPLE, {
         variables: { after: "", first: 10 },
         notifyOnNetworkStatusChange: true
     });
     const history = useHistory();
 
-    useEffect(() => {
-        if (!loading && data) {
-            const updatedList = displayedPeople.concat(data.allPeople.people);
-            setDisplayedPeople(updatedList);
-            setCurrentCount(updatedList.length);
-        }
-    }, [data, loading]);
-
     const getMore = () => {
-        refetch({ after: data.allPeople.pageInfo.endCursor, first: limit });
+        fetchMore({ variables: { after: data.allPeople.pageInfo.endCursor, first: limit } });
     }
 
     const redirectToDetailPage = (id: string) => {
@@ -59,20 +48,21 @@ const People = () => {
     }
 
     const selectAvatar = (gender: Person["gender"]) => {
-        if (gender === "male") {
-            return male;
-        } else if( gender === "female") {
-            return female;
-        } else {
-            return unknown;
+        switch (gender) {
+            case "male":
+                return male;
+            case "female":
+                return female;
+            default:
+                return unknown;
         }
     }
 
     return (
-        displayedPeople.length > 0
+        data
             ? <div className="people-page">
                 <Grid container spacing={2} data-cy="people-container">
-                    {displayedPeople.map((person: Person) =>
+                    {data.allPeople.people.map((person: Person) =>
                         <Grid item xs={12} sm={6} md={3} lg={2} data-cy="card" key={person.name}>
                             <Card className="card" onClick={() => redirectToDetailPage(person.id)} sx={{ bgcolor: "rgba(255, 255, 255, 0.4)", color: "#f9d71c" }}>
                                 <h3 data-cy="name">{person.name}</h3>
@@ -84,8 +74,8 @@ const People = () => {
                 {loading &&
                     <Loader />
                 }
-                {currentCount < data?.allPeople.totalCount &&
-                    <Button data-cy="load-more-btn" variant="contained" onClick={getMore} className="button load-more-button">Load more</Button>
+                {data.allPeople.people.length < data?.allPeople.totalCount &&
+                    <Button data-cy="load-more-btn" data-testid="load-more-btn" variant="contained" onClick={getMore} className="button load-more-button">Load more</Button>
                 }
             </div>
             : <></>
