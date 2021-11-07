@@ -3,7 +3,8 @@ import People from './components/people/people';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import Person from './components/person/person';
 import { useState } from 'react';
@@ -17,6 +18,9 @@ function App() {
       <Logo isCrawlActive={isCrawlActive} />
       <Router>
         <Switch>
+          <Route exact path="/">
+            <Redirect to="/people" />
+          </Route>
           <Route exact path="/people">
             <People />
           </Route>

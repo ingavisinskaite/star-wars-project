@@ -42,11 +42,16 @@
     background-color: #c9c9c9;
     color: black;
     font-weight: bold;
-    float: right;
-    margin: 20px 0;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
   }
 
   .button:hover {
     background-color: $yellow;
   }
+}
+
+.blur {
+  filter: blur(2px);
 }

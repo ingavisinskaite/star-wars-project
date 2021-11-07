@@ -31,3 +31,9 @@
       transform: rotateX(25deg) translateZ(-3500px);
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    .grid {
+      font-size: 100%;
+    }
+  }

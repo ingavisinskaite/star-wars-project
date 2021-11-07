@@ -59,7 +59,10 @@ const People = () => {
     }
 
     return (
-        <div className="people-page">
+        <div className={`people-page ${loading ? "blur" : ""}`}>
+            {loading &&
+                <Loader />
+            }
             <Grid container spacing={2} data-cy="people-container">
                 {data?.allPeople.people.map((person: Person, index: number) =>
                     <Grid item xs={12} sm={6} md={3} lg={2} data-cy="card" key={person.name}>
@@ -70,9 +73,6 @@ const People = () => {
                     </Grid>
                 )}
             </Grid>
-            {loading &&
-                <Loader />
-            }
             {data?.allPeople.people.length < data?.allPeople.totalCount &&
                 <Button data-cy="load-more-btn" data-testid="load-more-btn" variant="contained" onClick={getMore} className="button load-more-button">Load more</Button>
             }
