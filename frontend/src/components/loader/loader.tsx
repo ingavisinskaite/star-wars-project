@@ -2,7 +2,7 @@ import "./loader.scss";
 
 const Loader = () => {
   return (
-    <div className="app-loading">
+    <div className="app-loading" data-testid="app-loading">
       <svg className="spinner" viewBox="25 25 50 50">
         <circle
           className="path"

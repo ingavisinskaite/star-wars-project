@@ -3,7 +3,7 @@ import { Button, Grid, List, ListItem } from "@mui/material";
 import { useHistory, useParams } from "react-router";
 import Loader from "../loader/loader";
 
-const GET_PERSON = gql`
+export const GET_PERSON = gql`
     query GetPerson($id: ID) {
 	person(id: $id) {
         name
@@ -56,24 +56,20 @@ const Person = ({ isCrawlActive, setIsCrawlActive }: PersonProps) => {
                     className={`grid-item ${isCrawlActive ? "crawl" : ""}`}
                     data-cy="grid-item"
                 >
-                    {data &&
-                        <>
-                            <h3 data-cy="name" className="name">{data.person.name}</h3>
-                            <List className="film-list" data-cy="film-list">
-                                {data.person.filmConnection.films.map((film: Film) =>
-                                    <ListItem key={film.title}>
-                                        {film.title}
-                                    </ListItem>
-                                )}
-                            </List>
-                        </>
-                    }
+                    <h3 data-cy="name" data-testid="name" className="name">{data?.person.name}</h3>
+                    <List className="film-list" data-cy="film-list">
+                        {data?.person.filmConnection.films.map((film: Film) =>
+                            <ListItem key={film.title}>
+                                {film.title}
+                            </ListItem>
+                        )}
+                    </List>
                     {loading &&
                         <Loader />
                     }
                 </Grid>
             </Grid>
-            <Button variant="contained" data-cy="go-back-btn" onClick={goToMainPage} className="button">Go back</Button>
+            <Button variant="contained" data-testid="go-back-btn" data-cy="go-back-btn" onClick={goToMainPage} className="button">Go back</Button>
         </div>
     )
 };
